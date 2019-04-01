@@ -3,10 +3,19 @@ version: "3"
 services:
   backend:
     build:
-      context: .
+      context: ./backend
     ports:
       - "8000:8000"
     volumes:
-      - ./backend:/backend
+      - ./backend:/app
     command: >
      sh -c "python manage.py runserver 0.0.0.0:8000"
+  client:
+      build:
+        context: ./frontend
+      volumes:
+        - /app/node_modules
+        - ./frontend:/app
+      ports:
+        - "3000:3000"
+  
